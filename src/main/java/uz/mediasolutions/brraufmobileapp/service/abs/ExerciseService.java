@@ -13,4 +13,6 @@ public interface ExerciseService {
 
     ApiResult<?> add(ExerciseReqDTO dto);
 
+    ApiResult<Page<ExerciseDTO>> getByStudentId(int page, int size, Long studentId);
+
 }

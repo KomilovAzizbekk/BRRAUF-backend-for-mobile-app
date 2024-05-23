@@ -18,12 +18,12 @@ public interface ExerciseTypeController {
     String DELETE = "delete/{id}";
 
     @GetMapping(GET)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STUDENT')")
     ApiResult<Page<ExerciseTypeDTO>> get(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
                                          @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size);
 
     @GetMapping(GET_BY_ID)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STUDENT')")
     ApiResult<ExerciseTypeDTO> getById(@PathVariable Long id);
 
     @PostMapping(ADD)

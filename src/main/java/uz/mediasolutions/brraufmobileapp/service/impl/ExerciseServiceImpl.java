@@ -93,4 +93,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         return ApiResult.success("Successfully saved");
     }
+
+    @Override
+    public ApiResult<Page<ExerciseDTO>> getByStudentId(int page, int size, Long studentId) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Exercise> exercises = exerciseRepository.findAllByStudentId(studentId, pageable);
+        Page<ExerciseDTO> dtoPage = exercises.map(exerciseMapper::toDTO);
+        return ApiResult.success(dtoPage);
+    }
 }

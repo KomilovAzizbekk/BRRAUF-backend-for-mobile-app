@@ -82,8 +82,10 @@ public class StudentServiceImpl implements StudentService {
                 .credentialsNonExpired(true)
                 .build();
 
+        User saved = userRepository.save(user);
+
         Student student = studentMapper.toEntity(dto);
-        student.setUser(user);
+        student.setUser(saved);
         studentRepository.save(student);
         return ApiResult.success("Successfully added");
     }
@@ -117,6 +119,7 @@ public class StudentServiceImpl implements StudentService {
                 () -> RestException.restThrow("Student not found", HttpStatus.BAD_REQUEST));
         try {
             studentRepository.delete(student);
+            userRepository.delete(student.getUser());
             return ApiResult.success("Successfully deleted");
         } catch (Exception e) {
             throw RestException.restThrow("Error deleting student", HttpStatus.INTERNAL_SERVER_ERROR);

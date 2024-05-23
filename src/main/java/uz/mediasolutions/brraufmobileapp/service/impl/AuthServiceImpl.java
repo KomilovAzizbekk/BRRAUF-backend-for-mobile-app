@@ -100,7 +100,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
             TokenDTO tokenDTO = generateToken(currentUser);
             return ApiResult.success(tokenDTO);
         } else {
-            throw RestException.restThrow(Message.BAD_REQUEST, HttpStatus.BAD_REQUEST);
+            throw RestException.restThrow(Message.USERNAME_NOT_FOUND, HttpStatus.BAD_REQUEST);
         }
     }
 

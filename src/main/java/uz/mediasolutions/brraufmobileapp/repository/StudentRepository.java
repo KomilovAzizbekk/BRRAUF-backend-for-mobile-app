@@ -11,7 +11,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "SELECT s.*\n" +
             "FROM students s\n" +
-            "WHERE s.fullname OR s.phone_number ILIKE '%' || :search || '%'\n" +
+            "WHERE s.fullname ILIKE '%' || :search || '%'\n" +
             "  AND (:training_center IS NULL OR s.training_center_id = :training_center)", nativeQuery = true)
     Page<Student> findBySearchAndFilter(@Param("search") String search,
                                         @Param("training_center") Long trainingCenterId,

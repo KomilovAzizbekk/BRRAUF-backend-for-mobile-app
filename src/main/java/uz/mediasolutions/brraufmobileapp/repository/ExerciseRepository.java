@@ -22,4 +22,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
             Pageable pageable);
 
     int countAllByStudentId(Long studentId);
+
+    Page<Exercise> findAllByStudentId(Long studentId, Pageable pageable);
 }
