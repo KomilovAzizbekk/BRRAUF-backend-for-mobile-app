@@ -6,6 +6,7 @@ import uz.mediasolutions.brraufmobileapp.controller.abs.AuthController;
 import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.payload.SignInDTO;
 import uz.mediasolutions.brraufmobileapp.payload.TokenDTO;
+import uz.mediasolutions.brraufmobileapp.payload.UserDTO;
 import uz.mediasolutions.brraufmobileapp.service.abs.AuthService;
 
 @RestController
@@ -13,6 +14,16 @@ import uz.mediasolutions.brraufmobileapp.service.abs.AuthService;
 public class AuthControllerImpl implements AuthController {
 
     private final AuthService authService;
+
+    @Override
+    public ApiResult<UserDTO> getMe() {
+        return authService.getMe();
+    }
+
+    @Override
+    public ApiResult<TokenDTO> signInMobileApp(SignInDTO dto) {
+        return authService.signInMobileApp(dto);
+    }
 
     @Override
     public ApiResult<TokenDTO> signIn(SignInDTO dto) {

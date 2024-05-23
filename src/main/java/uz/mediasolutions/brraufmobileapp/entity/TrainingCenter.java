@@ -3,6 +3,7 @@ package uz.mediasolutions.brraufmobileapp.entity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import uz.mediasolutions.brraufmobileapp.entity.template.AbsDate;
 import uz.mediasolutions.brraufmobileapp.entity.template.AbsLong;
 
 import javax.persistence.*;
@@ -19,7 +20,11 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "training_center")
-public class TrainingCenter extends AbsLong {
+public class TrainingCenter extends AbsDate {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;

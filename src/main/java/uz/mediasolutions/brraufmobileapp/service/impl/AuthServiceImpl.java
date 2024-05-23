@@ -12,13 +12,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import uz.mediasolutions.brraufmobileapp.entity.User;
+import uz.mediasolutions.brraufmobileapp.enums.RoleName;
 import uz.mediasolutions.brraufmobileapp.exceptions.RestException;
 import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
+import uz.mediasolutions.brraufmobileapp.mapper.UserMapper;
 import uz.mediasolutions.brraufmobileapp.payload.SignInDTO;
 import uz.mediasolutions.brraufmobileapp.payload.TokenDTO;
+import uz.mediasolutions.brraufmobileapp.payload.UserDTO;
 import uz.mediasolutions.brraufmobileapp.repository.UserRepository;
 import uz.mediasolutions.brraufmobileapp.secret.JwtProvider;
 import uz.mediasolutions.brraufmobileapp.service.abs.AuthService;
+import uz.mediasolutions.brraufmobileapp.utills.CommonUtils;
 import uz.mediasolutions.brraufmobileapp.utills.constants.Message;
 import uz.mediasolutions.brraufmobileapp.utills.constants.Rest;
 
@@ -33,6 +37,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
+    private final UserMapper userMapper;
 
 
     @Override
@@ -76,6 +81,25 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                  UsernameNotFoundException disabledException) {
             throw RestException.restThrow(Message.USER_NOT_FOUND_OR_DISABLED, HttpStatus.BAD_REQUEST);
         } catch (AuthenticationException e) {
+            throw RestException.restThrow(Message.BAD_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ApiResult<UserDTO> getMe() {
+        User user = CommonUtils.getUserFromSecurityContext();
+        return ApiResult.success(userMapper.toDTO(user));
+    }
+
+    @Override
+    public ApiResult<TokenDTO> signInMobileApp(SignInDTO dto) {
+        usernameNotFoundThrow(dto.getUsername());
+
+        User currentUser = checkUsernameAndPasswordAndEtcAndSetAuthenticationOrThrow(dto.getUsername(), dto.getPassword());
+        if (currentUser.getRole().getName().equals(RoleName.ROLE_STUDENT)) {
+            TokenDTO tokenDTO = generateToken(currentUser);
+            return ApiResult.success(tokenDTO);
+        } else {
             throw RestException.restThrow(Message.BAD_REQUEST, HttpStatus.BAD_REQUEST);
         }
     }

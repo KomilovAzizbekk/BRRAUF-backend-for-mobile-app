@@ -7,7 +7,7 @@ import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
 
 public interface ExerciseService {
 
-    ApiResult<Page<ExerciseDTO>> get(int page, int size);
+    ApiResult<Page<ExerciseDTO>> get(int page, int size, Long exerciseTypeId, Long trainingCenterId);
 
     ApiResult<ExerciseDTO> getById(Long id);
 

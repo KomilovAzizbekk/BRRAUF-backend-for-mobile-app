@@ -36,11 +36,8 @@ public class Student extends AbsLong {
     @Column(name = "error")
     private int error;
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "password")
-    private String password;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private TrainingCenter trainingCenter;

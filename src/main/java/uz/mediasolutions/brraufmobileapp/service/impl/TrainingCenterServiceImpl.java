@@ -64,7 +64,8 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
 
         User user = userRepository.findByUsername(dto.getUsername());
         user.setUsername(dto.getUsername());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (dto.getPassword() != null)
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
         User saved = userRepository.save(user);
 
         trainingCenter.setUser(saved);

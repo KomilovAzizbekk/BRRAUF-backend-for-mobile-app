@@ -27,7 +27,7 @@ public class User extends AbsUUID implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
-    @Column(nullable = false, name = "username")
+    @Column(nullable = false, name = "username", unique = true)
     private String username;
 
     @Column(nullable = false, name = "password")
