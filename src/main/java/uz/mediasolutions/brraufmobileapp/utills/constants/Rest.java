@@ -17,7 +17,7 @@ public interface Rest {
             "/swagger-ui.html",
             "/webjars/**",
             AuthController.AUTH + "**",
-//            FileImageController.IMAGE + "get/**",
+            CertificateController.CERTIFICATE + "get-cert/**",
             "/favicon.ico",
             ExerciseController.EXERCISE + "add/**"
     };

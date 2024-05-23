@@ -16,4 +16,9 @@ public class CertificateControllerImpl implements CertificateController {
     public ResponseEntity<?> get(Long studentId) {
         return certificateService.get(studentId);
     }
+
+    @Override
+    public ResponseEntity<?> getCert(String file) {
+        return certificateService.getCert(file);
+    }
 }
