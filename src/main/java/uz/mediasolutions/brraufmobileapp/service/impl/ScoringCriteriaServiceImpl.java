@@ -39,7 +39,10 @@ public class ScoringCriteriaServiceImpl implements ScoringCriteriaService {
 
     @Override
     public ApiResult<?> add(String name) {
-        scoringCriteriaRepository.save(new ScoringCriteria(name));
+        ScoringCriteria scoringCriteria = ScoringCriteria.builder()
+                .name(name)
+                .build();
+        scoringCriteriaRepository.save(scoringCriteria);
         return ApiResult.success("Successfully saved");
     }
 
