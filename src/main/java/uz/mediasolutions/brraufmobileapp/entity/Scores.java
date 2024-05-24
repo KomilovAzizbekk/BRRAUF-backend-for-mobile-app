@@ -17,11 +17,11 @@ import javax.persistence.*;
 @DynamicUpdate
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "criterias")
-public class Criteria extends AbsLong {
+@Table(name = "scores")
+public class Scores extends AbsLong {
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ScoringCriteria criteria;
 
     @Column(name = "score")
     private long score;

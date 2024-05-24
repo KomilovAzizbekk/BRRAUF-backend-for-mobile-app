@@ -89,7 +89,7 @@ public class CertificateServiceImpl implements CertificateService {
     public String createCertificate(Student student) {
         String dest = "certificates/" + student.getFullName() + student.getId() + ".pdf";
         String path = constructImageUrl(dest);
-        String backgroundPath = "certificate_background.jpg";
+        String backgroundPath = "certificates/certificate_background.jpg";
         try {
 //            generateQRCode(qrCodeText, qrCodePath, 100, 100);
 

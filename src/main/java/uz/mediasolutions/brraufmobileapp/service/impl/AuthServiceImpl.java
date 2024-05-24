@@ -51,8 +51,12 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         usernameNotFoundThrow(signInDTO.getUsername());
 
         User currentUser = checkUsernameAndPasswordAndEtcAndSetAuthenticationOrThrow(signInDTO.getUsername(), signInDTO.getPassword());
-        TokenDTO tokenDTO = generateToken(currentUser);
-        return ApiResult.success(tokenDTO);
+        if (currentUser.getRole().getName().equals(RoleName.ROLE_STUDENT)) {
+            throw RestException.restThrow(Message.USERNAME_NOT_FOUND, HttpStatus.BAD_REQUEST);
+        } else {
+            TokenDTO tokenDTO = generateToken(currentUser);
+            return ApiResult.success(tokenDTO);
+        }
     }
 
     @Override
@@ -88,6 +92,9 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public ApiResult<UserDTO> getMe() {
         User user = CommonUtils.getUserFromSecurityContext();
+        if (user == null) {
+            throw RestException.restThrow(Message.USER_NOT_FOUND_OR_DISABLED, HttpStatus.FORBIDDEN);
+        }
         return ApiResult.success(userMapper.toDTO(user));
     }
 
@@ -105,14 +112,14 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     }
 
 
-    private void usernameNotFoundThrow(String username){
+    private void usernameNotFoundThrow(String username) {
         if (!userRepository.existsByUsername(username)) {
             throw RestException.restThrow(Message.USERNAME_NOT_FOUND, HttpStatus.BAD_REQUEST);
         }
     }
 
     public void checkPasswordEqualityIfErrorThrow(String password, String prePassword) {
-        if (Objects.nonNull(password) && !Objects.equals(password,prePassword)){
+        if (Objects.nonNull(password) && !Objects.equals(password, prePassword)) {
             throw RestException.restThrow(Message.MISMATCH_PASSWORDS, HttpStatus.BAD_REQUEST);
         }
     }

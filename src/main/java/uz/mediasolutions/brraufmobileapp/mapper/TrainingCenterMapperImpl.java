@@ -13,7 +13,6 @@ import uz.mediasolutions.brraufmobileapp.repository.*;
 public class TrainingCenterMapperImpl implements TrainingCenterMapper {
 
     private final PasswordEncoder passwordEncoder;
-    private final TrainingCenterRepository trainingCenterRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 

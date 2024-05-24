@@ -6,22 +6,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.mediasolutions.brraufmobileapp.entity.Exercise;
-import uz.mediasolutions.brraufmobileapp.entity.TrainingCenter;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
-    Page<Exercise> findByTrainingCenter(TrainingCenter trainingCenter, Pageable pageable);
+    @Query(value = "SELECT e.*\n" +
+            "FROM exercises e\n" +
+            "WHERE (:exercise_type IS NULL OR e.exercise_type_id = :exercise_type)", nativeQuery = true)
+    Page<Exercise> findByFilter(
+            @Param("exercise_type") Long exerciseTypeId,
+            Pageable pageable);
 
     @Query(value = "SELECT e.*\n" +
             "FROM exercises e\n" +
-            "WHERE (:exercise_type IS NULL OR e.exercise_type_id = :exercise_type)\n" +
-            "  AND (:training_center IS NULL OR e.training_center_id = :training_center)", nativeQuery = true)
-    Page<Exercise> findByFilter(
-            @Param("exercise_type") Long exerciseTypeId,
-            @Param("training_center") Long trainingCenterId,
+            "         JOIN public.exercises_students es on e.id = es.exercise_id\n" +
+            "         JOIN public.students s on s.id = es.students_id\n" +
+            "WHERE s.id = :student_id", nativeQuery = true)
+    Page<Exercise> findAllByStudentId(
+            @Param("student_id") long studentId,
             Pageable pageable);
-
-    int countAllByStudentId(Long studentId);
-
-    Page<Exercise> findAllByStudentId(Long studentId, Pageable pageable);
 }

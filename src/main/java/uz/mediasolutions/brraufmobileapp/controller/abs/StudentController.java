@@ -37,9 +37,11 @@ public interface StudentController {
     ApiResult<?> add(@RequestBody StudentReqDTO dto);
 
     @PutMapping(EDIT)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
     ApiResult<?> edit(@PathVariable Long id,
                       @RequestBody StudentReqDTO dto);
 
     @DeleteMapping(DELETE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
     ApiResult<?> delete(@PathVariable Long id);
 }

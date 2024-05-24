@@ -18,19 +18,13 @@ import java.util.List;
 @DynamicUpdate
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "students")
-public class Student extends AbsLong {
+@Table(name = "criterias")
+public class ScoringCriteria extends AbsLong {
 
-    @Column(name = "fullname", nullable = false)
-    private String fullName;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TrainingCenter trainingCenter;
+    @OneToMany(mappedBy = "criteria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Scores> scores;
 
 }

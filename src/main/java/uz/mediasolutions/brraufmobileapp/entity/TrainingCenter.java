@@ -38,7 +38,4 @@ public class TrainingCenter extends AbsDate {
     @OneToMany(mappedBy = "trainingCenter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Student> students;
 
-    @OneToMany(mappedBy = "trainingCenter", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Exercise> exercises;
-
 }

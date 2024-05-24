@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,15 +17,9 @@ public class ExerciseDTO {
 
     private long id;
 
-    private ExerciseTypeDTO type;
+    private String name;
 
-    private Student2DTO student;
-
-    private long spentTime;
-
-    private int sequence;
-
-    private int error;
+    private ExerciseTypeDTO exerciseType;
 
     private String createdTime;
 

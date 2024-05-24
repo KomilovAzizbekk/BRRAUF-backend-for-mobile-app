@@ -15,15 +15,14 @@ public interface ExerciseController {
     String EXERCISE = Rest.BASE_PATH + "exercise/";
     String GET = "get";
     String GET_BY_ID = "get-by/{id}";
-    String GET_BY_STUDENT_ID = "get-by/{studentId}";
+    String GET_BY_STUDENT_ID = "get-by-student-id/{studentId}";
     String ADD = "add";
 
     @GetMapping(GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
     ApiResult<Page<ExerciseDTO>> get(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
                                      @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size,
-                                     @RequestParam(required = false) Long exerciseTypeId,
-                                     @RequestParam(required = false) Long trainingCenterId);
+                                     @RequestParam(required = false) Long exerciseTypeId);
 
     @GetMapping(GET_BY_ID)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
@@ -36,6 +35,6 @@ public interface ExerciseController {
                                                 @PathVariable Long studentId);
 
     @PostMapping(ADD)
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     ApiResult<?> add(@RequestBody ExerciseReqDTO dto);
 }

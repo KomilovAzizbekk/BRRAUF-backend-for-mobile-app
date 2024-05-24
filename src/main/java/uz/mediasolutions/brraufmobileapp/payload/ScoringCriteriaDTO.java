@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExerciseReqDTO {
+public class ScoringCriteriaDTO {
 
-    private long exerciseTypeId;
+    private long id;
 
     private String name;
 
