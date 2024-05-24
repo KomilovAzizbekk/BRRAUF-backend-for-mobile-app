@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.mediasolutions.brraufmobileapp.entity.Student;
+import uz.mediasolutions.brraufmobileapp.entity.User;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
@@ -21,4 +22,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Page<Student> findAllByTrainingCenterIdOrderByFullNameAsc(Long trainingCenterId, Pageable pageable);
 
+    Student findByUser(User user);
 }

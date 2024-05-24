@@ -7,6 +7,7 @@ import uz.mediasolutions.brraufmobileapp.controller.abs.ExerciseController;
 import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
+import uz.mediasolutions.brraufmobileapp.payload.ExerciseStudentDTO;
 import uz.mediasolutions.brraufmobileapp.service.abs.ExerciseService;
 
 @RestController
@@ -26,7 +27,7 @@ public class ExerciseControllerImpl implements ExerciseController {
     }
 
     @Override
-    public ApiResult<Page<ExerciseDTO>> getByStudentId(int page, int size, Long studentId) {
+    public ApiResult<Page<ExerciseStudentDTO>> getByStudentId(int page, int size, Long studentId) {
         return exerciseService.getByStudentId(page, size, studentId);
     }
 

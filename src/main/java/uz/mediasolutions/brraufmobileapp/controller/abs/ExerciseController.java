@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
+import uz.mediasolutions.brraufmobileapp.payload.ExerciseStudentDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseTypeDTO;
 import uz.mediasolutions.brraufmobileapp.utills.constants.Rest;
 
@@ -29,10 +30,10 @@ public interface ExerciseController {
     ApiResult<ExerciseDTO> getById(@PathVariable Long id);
 
     @GetMapping(GET_BY_STUDENT_ID)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT', 'ROLE_SUPER_ADMIN')")
-    ApiResult<Page<ExerciseDTO>> getByStudentId(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
-                                                @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size,
-                                                @PathVariable Long studentId);
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+    ApiResult<Page<ExerciseStudentDTO>> getByStudentId(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
+                                                       @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size,
+                                                       @PathVariable Long studentId);
 
     @PostMapping(ADD)
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")

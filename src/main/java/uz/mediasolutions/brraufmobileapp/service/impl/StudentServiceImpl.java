@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
         Pageable pageable = PageRequest.of(page, size);
         User user = CommonUtils.getUserFromSecurityContext();
 
-        Page<Student> students;
+        Page<Student> students = null;
         Page<StudentDTO> studentDTOs;
 
         assert user != null;
@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 students = studentRepository.findAllByOrderByFullNameAsc(pageable);
             }
-        } else {
+        } else if (user.getRole().getName().equals(RoleName.ROLE_ADMIN)){
             TrainingCenter trainingCenter = trainingCenterRepository.findByUser(user);
             if (search != null) {
                 students = studentRepository.findBySearchAndFilter(search, trainingCenter.getId(), pageable);
@@ -57,6 +57,7 @@ public class StudentServiceImpl implements StudentService {
                 students = studentRepository.findAllByTrainingCenterIdOrderByFullNameAsc(trainingCenter.getId(), pageable);
             }
         }
+        assert students != null;
         studentDTOs = students.map(studentMapper::toDTO);
         return ApiResult.success(studentDTOs);
     }

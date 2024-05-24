@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
+import uz.mediasolutions.brraufmobileapp.payload.ExerciseStudentDTO;
 
 public interface ExerciseService {
 
@@ -13,6 +14,6 @@ public interface ExerciseService {
 
     ApiResult<?> add(ExerciseReqDTO dto);
 
-    ApiResult<Page<ExerciseDTO>> getByStudentId(int page, int size, Long studentId);
+    ApiResult<Page<ExerciseStudentDTO>> getByStudentId(int page, int size, Long studentId);
 
 }

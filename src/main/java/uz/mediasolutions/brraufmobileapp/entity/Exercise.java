@@ -6,7 +6,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import uz.mediasolutions.brraufmobileapp.entity.template.AbsLong;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,8 +25,5 @@ public class Exercise extends AbsLong {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Student> students;
 
 }

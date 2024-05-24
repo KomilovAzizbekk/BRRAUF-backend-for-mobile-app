@@ -12,6 +12,7 @@ import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.mapper.ExerciseMapper;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
+import uz.mediasolutions.brraufmobileapp.payload.ExerciseStudentDTO;
 import uz.mediasolutions.brraufmobileapp.repository.ExerciseRepository;
 import uz.mediasolutions.brraufmobileapp.service.abs.ExerciseService;
 
@@ -55,10 +56,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ApiResult<Page<ExerciseDTO>> getByStudentId(int page, int size, Long studentId) {
+    public ApiResult<Page<ExerciseStudentDTO>> getByStudentId(int page, int size, Long studentId) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Exercise> exercises = exerciseRepository.findAllByStudentId(studentId, pageable);
-        Page<ExerciseDTO> dtoPage = exercises.map(exerciseMapper::toDTO);
+        Page<Exercise> exercises = exerciseRepository.findAll(pageable);
+        Page<ExerciseStudentDTO> dtoPage = exercises.map(exerciseMapper::toStudentDTO);
         return ApiResult.success(dtoPage);
     }
+
 }
