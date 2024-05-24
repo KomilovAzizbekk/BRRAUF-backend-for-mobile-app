@@ -27,12 +27,22 @@ public class ExerciseControllerImpl implements ExerciseController {
     }
 
     @Override
-    public ApiResult<Page<ExerciseStudentDTO>> getByStudentId(int page, int size, Long studentId) {
-        return exerciseService.getByStudentId(page, size, studentId);
+    public ApiResult<Page<ExerciseStudentDTO>> getByStudentId(int page, int size) {
+        return exerciseService.getByStudentId(page, size);
     }
 
     @Override
     public ApiResult<?> add(ExerciseReqDTO dto) {
         return exerciseService.add(dto);
+    }
+
+    @Override
+    public ApiResult<?> edit(Long id, ExerciseReqDTO dto) {
+        return exerciseService.edit(id, dto);
+    }
+
+    @Override
+    public ApiResult<?> delete(Long id) {
+        return exerciseService.delete(id);
     }
 }

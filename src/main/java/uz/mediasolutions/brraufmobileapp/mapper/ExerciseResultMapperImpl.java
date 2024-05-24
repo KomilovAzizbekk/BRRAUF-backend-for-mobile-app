@@ -8,6 +8,7 @@ import uz.mediasolutions.brraufmobileapp.exceptions.RestException;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseResultDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseResultReqDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ScoreDTO;
+import uz.mediasolutions.brraufmobileapp.payload.ScoreReqDTO;
 import uz.mediasolutions.brraufmobileapp.repository.ExerciseRepository;
 import uz.mediasolutions.brraufmobileapp.repository.ScoreRepository;
 import uz.mediasolutions.brraufmobileapp.repository.ScoringCriteriaRepository;
@@ -60,7 +61,7 @@ public class ExerciseResultMapperImpl implements ExerciseResultMapper {
                 .build();
     }
 
-    private Scores toScores(ScoreDTO dto) {
+    private Scores toScores(ScoreReqDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -76,13 +77,13 @@ public class ExerciseResultMapperImpl implements ExerciseResultMapper {
         return scoreRepository.save(scores);
     }
 
-    private List<Scores> toScores(List<ScoreDTO> dtos) {
+    private List<Scores> toScores(List<ScoreReqDTO> dtos) {
         if (dtos == null) {
             return null;
         }
 
         List<Scores> scores = new ArrayList<>();
-        for (ScoreDTO dto : dtos) {
+        for (ScoreReqDTO dto : dtos) {
             scores.add(toScores(dto));
         }
         return scores;

@@ -17,12 +17,6 @@ public class StudentDTO {
 
     private String phoneNumber;
 
-    private long spentTime;
-
-    private int sequence;
-
-    private int error;
-
     private String username;
 
     private String password;

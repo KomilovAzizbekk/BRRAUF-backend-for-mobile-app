@@ -86,6 +86,7 @@ public class ExerciseMapperImpl implements ExerciseMapper {
         return ScoreDTO.builder()
                 .score(scores.getScore())
                 .criteriaId(scores.getCriteria().getId())
+                .criteriaName(scores.getCriteria().getName())
                 .build();
     }
 

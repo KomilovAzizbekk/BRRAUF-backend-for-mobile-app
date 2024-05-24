@@ -7,7 +7,6 @@ import uz.mediasolutions.brraufmobileapp.manual.ApiResult;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseReqDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseStudentDTO;
-import uz.mediasolutions.brraufmobileapp.payload.ExerciseTypeDTO;
 import uz.mediasolutions.brraufmobileapp.utills.constants.Rest;
 
 @RequestMapping(ExerciseController.EXERCISE)
@@ -16,8 +15,10 @@ public interface ExerciseController {
     String EXERCISE = Rest.BASE_PATH + "exercise/";
     String GET = "get";
     String GET_BY_ID = "get-by/{id}";
-    String GET_BY_STUDENT_ID = "get-by-student-id/{studentId}";
+    String GET_BY_STUDENT_ID = "get-by-student-id";
     String ADD = "add";
+    String EDIT = "edit/{id}";
+    String DELETE = "delete/{id}";
 
     @GetMapping(GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
@@ -32,10 +33,19 @@ public interface ExerciseController {
     @GetMapping(GET_BY_STUDENT_ID)
     @PreAuthorize("hasAnyRole('ROLE_STUDENT')")
     ApiResult<Page<ExerciseStudentDTO>> getByStudentId(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
-                                                       @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size,
-                                                       @PathVariable Long studentId);
+                                                       @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size);
 
     @PostMapping(ADD)
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     ApiResult<?> add(@RequestBody ExerciseReqDTO dto);
+
+    @PutMapping(EDIT)
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
+    ApiResult<?> edit(@PathVariable Long id,
+                      @RequestBody ExerciseReqDTO dto);
+
+    @DeleteMapping(DELETE)
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
+    ApiResult<?> delete(@PathVariable Long id);
+
 }

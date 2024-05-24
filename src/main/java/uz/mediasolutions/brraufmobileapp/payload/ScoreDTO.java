@@ -15,6 +15,8 @@ public class ScoreDTO {
 
     private long criteriaId;
 
+    private String criteriaName;
+
     private long score;
 
 }

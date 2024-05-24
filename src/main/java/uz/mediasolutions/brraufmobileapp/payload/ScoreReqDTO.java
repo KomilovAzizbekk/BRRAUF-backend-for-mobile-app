@@ -5,18 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExerciseResultReqDTO {
+public class ScoreReqDTO {
 
-    private long studentId;
+    private long criteriaId;
 
-    private long exerciseId;
-
-    private List<ScoreReqDTO> scores;
+    private long score;
 
 }
