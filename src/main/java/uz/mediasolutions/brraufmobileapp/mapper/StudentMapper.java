@@ -11,6 +11,8 @@ import uz.mediasolutions.brraufmobileapp.payload.StudentReqDTO;
 public interface StudentMapper {
 
     @Mapping(target = "username", source = "user.username")
+    @Mapping(target = "trainingCenterId", source = "trainingCenter.id")
+    @Mapping(target = "trainingCenterName", source = "trainingCenter.name")
     StudentDTO toDTO(Student student);
 
     @Mapping(target = "trainingCenter.id", source = "trainingCenterId")

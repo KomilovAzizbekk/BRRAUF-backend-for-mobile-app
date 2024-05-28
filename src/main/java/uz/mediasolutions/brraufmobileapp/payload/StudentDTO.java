@@ -21,4 +21,8 @@ public class StudentDTO {
 
     private String password;
 
+    private long trainingCenterId;
+
+    private String trainingCenterName;
+
 }
