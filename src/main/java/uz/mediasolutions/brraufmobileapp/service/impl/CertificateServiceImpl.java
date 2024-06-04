@@ -9,8 +9,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -35,7 +33,6 @@ import uz.mediasolutions.brraufmobileapp.repository.StudentRepository;
 import uz.mediasolutions.brraufmobileapp.service.abs.CertificateService;
 import uz.mediasolutions.brraufmobileapp.utills.constants.Rest;
 
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -132,15 +129,15 @@ public class CertificateServiceImpl implements CertificateService {
         }
     }
 
-//    private String constructImageUrl(String fileName) {
-//        String baseUrl = environment.getProperty("server.base-url", "https://brrauf-backend.medias.uz" + Rest.BASE_PATH);
-//        return baseUrl + "certificate/get-cert/" + fileName.substring(fileName.indexOf('/') + 1);
-//    }
-
     private String constructImageUrl(String fileName) {
-        String baseUrl = environment.getProperty("server.base-url", "http://localhost:8080" + Rest.BASE_PATH);
+        String baseUrl = environment.getProperty("server.base-url", "https://brrauf-backend.medias.uz" + Rest.BASE_PATH);
         return baseUrl + "certificate/get-cert/" + fileName.substring(fileName.indexOf('/') + 1);
     }
+
+//    private String constructImageUrl(String fileName) {
+//        String baseUrl = environment.getProperty("server.base-url", "http://localhost:8080" + Rest.BASE_PATH);
+//        return baseUrl + "certificate/get-cert/" + fileName.substring(fileName.indexOf('/') + 1);
+//    }
 
     private static ByteArrayOutputStream generateQRCode(String text, int width, int height) throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
