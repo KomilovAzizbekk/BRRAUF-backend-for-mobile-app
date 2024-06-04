@@ -13,8 +13,6 @@ import java.util.List;
 @Builder
 public class ExerciseResultReqDTO {
 
-    private long studentId;
-
     private long exerciseId;
 
     private List<ScoreReqDTO> scores;

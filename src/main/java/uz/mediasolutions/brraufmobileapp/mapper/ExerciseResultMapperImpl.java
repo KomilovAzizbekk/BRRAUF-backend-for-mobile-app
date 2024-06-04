@@ -7,12 +7,12 @@ import uz.mediasolutions.brraufmobileapp.entity.*;
 import uz.mediasolutions.brraufmobileapp.exceptions.RestException;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseResultDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ExerciseResultReqDTO;
-import uz.mediasolutions.brraufmobileapp.payload.ScoreDTO;
 import uz.mediasolutions.brraufmobileapp.payload.ScoreReqDTO;
 import uz.mediasolutions.brraufmobileapp.repository.ExerciseRepository;
 import uz.mediasolutions.brraufmobileapp.repository.ScoreRepository;
 import uz.mediasolutions.brraufmobileapp.repository.ScoringCriteriaRepository;
 import uz.mediasolutions.brraufmobileapp.repository.StudentRepository;
+import uz.mediasolutions.brraufmobileapp.utills.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,9 @@ public class ExerciseResultMapperImpl implements ExerciseResultMapper {
         Exercise exercise = exerciseRepository.findById(dto.getExerciseId()).orElseThrow(
                 () -> RestException.restThrow("Exercise not found", HttpStatus.BAD_REQUEST));
 
-        Student student = studentRepository.findById(dto.getStudentId()).orElseThrow(
-                () -> RestException.restThrow("Student not found", HttpStatus.BAD_REQUEST));
+        User user = CommonUtils.getUserFromSecurityContext();
+
+        Student student = studentRepository.findByUser(user);
 
         return ExerciseResult.builder()
                 .exercise(exercise)
