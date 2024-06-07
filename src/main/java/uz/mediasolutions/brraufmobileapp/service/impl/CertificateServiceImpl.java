@@ -9,6 +9,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -104,13 +106,14 @@ public class CertificateServiceImpl implements CertificateService {
             // Add QR code image to the first page
             document.add(qrCodeImage);
 
+            PdfFont font = PdfFontFactory.createFont();
 
             // Add text to the PDF
             // Add styled text to the PDF
             Paragraph paragraph = new Paragraph(textToAdd)
                     .setBold()
+                    .setFont(font)
                     .setTextAlignment(TextAlignment.CENTER)
-                    .setWidth(400)
                     .setMarginTop(250)
                     .setFontSize(40)
                     .setFontColor(new DeviceRgb(250, 220, 120));

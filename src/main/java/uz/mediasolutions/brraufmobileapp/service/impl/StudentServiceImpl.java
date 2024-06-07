@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 students = studentRepository.findAllByOrderByFullNameAsc(pageable);
             }
-        } else if (user.getRole().getName().equals(RoleName.ROLE_ADMIN)){
+        } else if (user.getRole().getName().equals(RoleName.ROLE_ADMIN)) {
             TrainingCenter trainingCenter = trainingCenterRepository.findByUser(user);
             if (search != null) {
                 students = studentRepository.findBySearchAndFilter(search, trainingCenter.getId(), pageable);
@@ -72,21 +72,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ApiResult<?> add(StudentReqDTO dto) {
-
-        User user = User.builder()
-                .username(dto.getUsername())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .role(roleRepository.findByName(RoleName.ROLE_STUDENT))
-                .accountNonExpired(true)
-                .accountNonLocked(true)
-                .enabled(true)
-                .credentialsNonExpired(true)
-                .build();
-
-        User saved = userRepository.save(user);
-
-        Student student = studentMapper.toEntity(dto);
-        student.setUser(saved);
+        Student student = toEntity(dto);
         studentRepository.save(student);
         return ApiResult.success("Successfully added");
     }
@@ -125,5 +111,41 @@ public class StudentServiceImpl implements StudentService {
         } catch (Exception e) {
             throw RestException.restThrow("Error deleting student", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    private Student toEntity(StudentReqDTO dto) {
+
+        User user = User.builder()
+                .username(dto.getUsername())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .role(roleRepository.findByName(RoleName.ROLE_STUDENT))
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .enabled(true)
+                .credentialsNonExpired(true)
+                .build();
+
+        User admin = CommonUtils.getUserFromSecurityContext();
+
+        assert admin != null;
+
+        Long trainingCenterId = dto.getTrainingCenterId();
+        TrainingCenter trainingCenter = null;
+
+        if (admin.getRole().getName().equals(RoleName.ROLE_ADMIN)) {
+            trainingCenter = trainingCenterRepository.findByUser(admin);
+        } else if (admin.getRole().getName().equals(RoleName.ROLE_SUPER_ADMIN)) {
+            trainingCenter = trainingCenterRepository.findById(trainingCenterId).orElseThrow(
+                    () -> RestException.restThrow("TrainingCenter not found", HttpStatus.BAD_REQUEST));
+        }
+
+        User saved = userRepository.save(user);
+
+        return Student.builder()
+                .user(saved)
+                .phoneNumber(dto.getPhoneNumber())
+                .fullName(dto.getFullName())
+                .trainingCenter(trainingCenter)
+                .build();
     }
 }

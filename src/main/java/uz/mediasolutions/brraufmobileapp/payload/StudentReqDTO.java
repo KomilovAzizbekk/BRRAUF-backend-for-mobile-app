@@ -21,4 +21,10 @@ public class StudentReqDTO {
 
     private Long trainingCenterId;
 
+    public StudentReqDTO(String fullName, String phoneNumber, String username, String password) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.password = password;
+    }
 }

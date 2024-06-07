@@ -20,7 +20,8 @@ public interface ExerciseResultController {
     @GetMapping(GET)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STUDENT')")
     ApiResult<Page<ExerciseResultDTO>> get(@RequestParam(defaultValue = Rest.DEFAULT_PAGE_NUMBER) int page,
-                                           @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size);
+                                           @RequestParam(defaultValue = Rest.DEFAULT_PAGE_SIZE) int size,
+                                           @RequestParam(required = false) Long trainingCenterId);
 
     @GetMapping(GET_BY_ID)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STUDENT')")

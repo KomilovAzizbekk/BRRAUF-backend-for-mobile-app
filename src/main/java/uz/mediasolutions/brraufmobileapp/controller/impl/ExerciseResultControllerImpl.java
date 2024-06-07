@@ -16,8 +16,8 @@ public class ExerciseResultControllerImpl implements ExerciseResultController {
     private final ExerciseResultService exerciseResultService;
 
     @Override
-    public ApiResult<Page<ExerciseResultDTO>> get(int page, int size) {
-        return exerciseResultService.get(page, size);
+    public ApiResult<Page<ExerciseResultDTO>> get(int page, int size, Long trainingCenterId) {
+        return exerciseResultService.get(page, size, trainingCenterId);
     }
 
     @Override
